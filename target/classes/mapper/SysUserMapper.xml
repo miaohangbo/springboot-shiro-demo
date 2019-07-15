@@ -1,0 +1,26 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.dao.SysUserMapper">
+    <resultMap type="com.qf.domain.SysUser" id="userMap">
+        <id column="USERID" property="userId" />
+        <result column="LOGIN_NAME" property="loginName" />
+        <result column="PASSWORD" property="password" />
+        <result column="STATE" property="state" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="REALNAME" property="realname" />
+    </resultMap>
+
+    <sql id="tbusers_columns">
+        USERID,PASSWORD,LOGIN_NAME,CREATE_TIME,REALNAME,STATE
+    </sql>
+    <!--根据用户名查询对象  -->
+    <select id="findUserByUsername" parameterType="string" resultMap="userMap">
+        SELECT
+        <include refid="tbusers_columns"></include>
+        FROM
+        TB_SYS_USER US
+        WHERE
+        US.LOGIN_NAME = #{name}
+    </select>
+</mapper>
